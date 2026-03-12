@@ -110,8 +110,8 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
   </div>
   <div class="kpis">
     <div class="kpi" style="--c:#f59e0b"><div class="kpi-label">Saldo Inicial</div><div class="kpi-val">$133.5M</div><div class="kpi-full">$ 133.477.830</div></div>
-    <div class="kpi" style="--c:#16a34a"><div class="kpi-label">Total Ingresos</div><div class="kpi-val">$1.14B</div><div class="kpi-full">$ 1.136.809.076</div></div>
-    <div class="kpi" style="--c:#dc2626"><div class="kpi-label">Total Egresos</div><div class="kpi-val">$1.60B</div><div class="kpi-full">$ 1.597.995.653</div></div>
+    <div class="kpi" style="--c:#16a34a"><div class="kpi-label">Ingresos Reales</div><div class="kpi-val">$864.8M</div><div class="kpi-full">$ 864.809.076</div><div class="kpi-full" style="color:#94a3b8;margin-top:3px;font-size:9px">+$ 272.000.000 transf.</div></div>
+    <div class="kpi" style="--c:#dc2626"><div class="kpi-label">Egresos Reales</div><div class="kpi-val">$1.33B</div><div class="kpi-full">$ 1.325.995.653</div><div class="kpi-full" style="color:#94a3b8;margin-top:3px;font-size:9px">+$ 272.000.000 transf.</div></div>
     <div class="kpi" style="--c:#dc2626"><div class="kpi-label">Saldo Cierre (Día 31)</div><div class="kpi-val">-$327.7M ⚠️</div><div class="kpi-full">-$ 327.708.746</div></div>
     <div class="kpi" style="--c:#7c3aed"><div class="kpi-label">Saldo Neto Real</div><div class="kpi-val">$192.4M</div><div class="kpi-full">$ 192.389.989</div></div>
   </div>
@@ -143,22 +143,28 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
     <div class="origen-summary"><div class="origen-card" style="--oc:#1d4ed8">
       <div class="origen-card-name">🏦 Principal</div>
       <div class="origen-card-row"><span>Saldo inicial</span><span>$ 86.469.439</span></div>
-      <div class="origen-card-row"><span>▲ Ingresos</span><span style="color:#16a34a">$ 864.807.203</span></div>
-      <div class="origen-card-row"><span>▼ Egresos</span><span style="color:#dc2626">$ 1.324.946.423</span></div>
+      <div class="origen-card-row"><span>▲ Ingresos del mes</span><span style="color:#16a34a">$ 864.807.203</span></div>
+      <div class="origen-card-row"><span>▼ Egresos del mes</span><span style="color:#dc2626">$ 1.052.946.423</span></div>
+      <div class="origen-card-row"><span style="color:#64748b">↗ Transferencias enviadas</span><span style="color:#f97316">− $ 272.000.000</span></div>
+      
       <div class="saldo-final-row"><span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Saldo final</span><span style="font-size:13px;font-weight:800;color:#dc2626">-$ 373.669.781</span></div>
       
     </div><div class="origen-card" style="--oc:#15803d">
       <div class="origen-card-name">🤝 Consorcio</div>
       <div class="origen-card-row"><span>Saldo inicial</span><span>$ 1.422.734</span></div>
-      <div class="origen-card-row"><span>▲ Transferencias</span><span style="color:#16a34a">$ 272.000.000</span></div>
-      <div class="origen-card-row"><span>▼ Egresos</span><span style="color:#dc2626">$ 273.049.230</span></div>
+      <div class="origen-card-row"><span>▲ Transferencias recibidas</span><span style="color:#16a34a">$ 272.000.000</span></div>
+      <div class="origen-card-row"><span>▼ Egresos del mes</span><span style="color:#dc2626">$ 273.049.230</span></div>
+      
+      
       <div class="saldo-final-row"><span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Saldo final</span><span style="font-size:13px;font-weight:800;color:#15803d">$ 373.504</span></div>
       
     </div><div class="origen-card" style="--oc:#7c3aed">
       <div class="origen-card-name">💰 Ahorros</div>
       <div class="origen-card-row"><span>Saldo inicial</span><span>$ 45.585.657</span></div>
-      <div class="origen-card-row"><span>▲ Ingresos</span><span style="color:#16a34a">$ 1.874</span></div>
-      <div class="origen-card-row"><span>▼ Egresos</span><span style="color:#dc2626">$ 0</span></div>
+      <div class="origen-card-row"><span>▲ Ingresos del mes</span><span style="color:#16a34a">$ 1.874</span></div>
+      <div class="origen-card-row"><span>▼ Egresos del mes</span><span style="color:#dc2626">$ 0</span></div>
+      
+      
       <div class="saldo-final-row"><span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Saldo final</span><span style="font-size:13px;font-weight:800;color:#7c3aed">$ 45.587.531</span></div>
       
     </div></div>
@@ -1076,10 +1082,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 133.477.830</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 133.477.830</div></div>
       </div>
     </div><div id="dp-1" class="day-panel" style="display:none;margin-top:16px">
@@ -1088,12 +1096,14 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
         <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
       </div>
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 133.477.830</strong></div>
-      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 102.000.123</div></div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#16a34a">$ 40.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
-      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Préstamos INVINMO</div><div class="day-row-val" style="color:#dc2626">$ 49.284.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#dc2626">$ 40.000.000</div></div><div class="day-row"><div class="day-row-name">Enel (Servicio Luz)</div><div class="day-row-val" style="color:#dc2626">$ 734.180</div></div><div class="day-row"><div class="day-row-name">Coorserpark</div><div class="day-row-val" style="color:#dc2626">$ 54.800</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 332.791</div></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 102.000.123</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Préstamos INVINMO</div><div class="day-row-val" style="color:#dc2626">$ 49.284.000</div></div><div class="day-row"><div class="day-row-name">Enel (Servicio Luz)</div><div class="day-row-val" style="color:#dc2626">$ 734.180</div></div><div class="day-row"><div class="day-row-name">Coorserpark</div><div class="day-row-val" style="color:#dc2626">$ 54.800</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 332.791</div></div>
+      <div class="day-section-title" style="color:#f97316">↔ Transferencias internas</div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#7c3aed">$ 40.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#f97316">$ 40.000.000</div></div>
       
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 142.000.185</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 90.405.771</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 102.000.185</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 50.405.771</div></div>
+        <div class="day-total-box"><div class="day-total-label">Transferencias</div><div class="day-total-val" style="color:#f97316">▲ $ 40.000.000 ▼ $ 40.000.000</div></div>
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 185.072.245</div></div>
       </div>
     </div><div id="dp-2" class="day-panel" style="display:none;margin-top:16px">
@@ -1105,9 +1115,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 56.400.123</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Sistemas Admin. e Ing. SAS</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 74.077</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 56.400.185</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 16.144.177</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 56.400.185</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 16.144.177</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 225.328.253</div></div>
       </div>
     </div><div id="dp-3" class="day-panel" style="display:none;margin-top:16px">
@@ -1119,9 +1131,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 53.116.201</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Giros Internacionales</div><div class="day-row-val" style="color:#dc2626">$ 75.610.384</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 302.442</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 53.116.263</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 75.912.825</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 53.116.263</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 75.912.825</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 202.531.691</div></div>
       </div>
     </div><div id="dp-4" class="day-panel" style="display:none;margin-top:16px">
@@ -1133,9 +1147,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 2.756.914</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 43.594</div></div><div class="day-row"><div class="day-row-name">Cuenta de Cobro Luis Duran</div><div class="day-row-val" style="color:#dc2626">$ 5.300.000</div></div><div class="day-row"><div class="day-row-name">Cuenta de cobro Jose Hugo Bohorquez</div><div class="day-row-val" style="color:#dc2626">$ 700.000</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 2.756.976</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 6.043.594</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 2.756.976</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 6.043.594</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 199.245.073</div></div>
       </div>
     </div><div id="dp-5" class="day-panel" style="display:none;margin-top:16px">
@@ -1147,9 +1163,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 84.600.123</div></div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 3.143.783</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 87.743.968</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 87.743.968</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 286.989.041</div></div>
       </div>
     </div><div id="dp-6" class="day-panel" style="display:none;margin-top:16px">
@@ -1160,10 +1178,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 286.989.041</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 286.989.041</div></div>
       </div>
     </div><div id="dp-7" class="day-panel" style="display:none;margin-top:16px">
@@ -1174,10 +1194,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 286.989.041</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 286.989.041</div></div>
       </div>
     </div><div id="dp-8" class="day-panel" style="display:none;margin-top:16px">
@@ -1189,9 +1211,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 94.234</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 94.421</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 94.421</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 287.083.463</div></div>
       </div>
     </div><div id="dp-9" class="day-panel" style="display:none;margin-top:16px">
@@ -1203,9 +1227,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 74.800.123</div></div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 4.895.579</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Mi Planilla (Aportes+Cesantías)</div><div class="day-row-val" style="color:#dc2626">$ 18.270.900</div></div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 6.100.000</div></div><div class="day-row"><div class="day-row-name">Póliza Seguros Mundial</div><div class="day-row-val" style="color:#dc2626">$ 275.633</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 98.586</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 33.565</div></div><div class="day-row"><div class="day-row-name">Cuenta de Cobro Paula Irene Tejada</div><div class="day-row-val" style="color:#dc2626">$ 5.942.040</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 79.695.764</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 30.720.724</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 79.695.764</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 30.720.724</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 336.058.503</div></div>
       </div>
     </div><div id="dp-10" class="day-panel" style="display:none;margin-top:16px">
@@ -1217,9 +1243,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">.PE</div><div class="day-row-val" style="color:#dc2626">$ 140.516</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 562</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 141.078</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 141.078</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 335.917.487</div></div>
       </div>
     </div><div id="dp-11" class="day-panel" style="display:none;margin-top:16px">
@@ -1231,9 +1259,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Préstamos INVINMO</div><div class="day-row-val" style="color:#dc2626">$ 10.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 49.797</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 10.049.797</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 10.049.797</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 325.867.753</div></div>
       </div>
     </div><div id="dp-12" class="day-panel" style="display:none;margin-top:16px">
@@ -1245,9 +1275,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Nómina (1Q y 2Q)</div><div class="day-row-val" style="color:#dc2626">$ 38.865.452</div></div><div class="day-row"><div class="day-row-name">Nómina Erika Tarazona</div><div class="day-row-val" style="color:#dc2626">$ 1.734.548</div></div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 15.626.827</div></div><div class="day-row"><div class="day-row-name">Abonos TC (USD)</div><div class="day-row-val" style="color:#dc2626">$ 23.000.000</div></div><div class="day-row"><div class="day-row-name">Plan Complementario Compensar</div><div class="day-row-val" style="color:#dc2626">$ 1.471.680</div></div><div class="day-row"><div class="day-row-name">Comcel Claro Hogar</div><div class="day-row-val" style="color:#dc2626">$ 180.301</div></div><div class="day-row"><div class="day-row-name">Comcel Claro Móvil</div><div class="day-row-val" style="color:#dc2626">$ 241.617</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 508.744</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 688.962</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 82.318.130</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 82.318.130</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.685</div></div>
       </div>
     </div><div id="dp-13" class="day-panel" style="display:none;margin-top:16px">
@@ -1258,10 +1290,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 312.549.685</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.685</div></div>
       </div>
     </div><div id="dp-14" class="day-panel" style="display:none;margin-top:16px">
@@ -1272,10 +1306,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 312.549.685</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.685</div></div>
       </div>
     </div><div id="dp-15" class="day-panel" style="display:none;margin-top:16px">
@@ -1287,9 +1323,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.872</div></div>
       </div>
     </div><div id="dp-16" class="day-panel" style="display:none;margin-top:16px">
@@ -1301,9 +1339,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 92.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 404.549.935</div></div>
       </div>
     </div><div id="dp-17" class="day-panel" style="display:none;margin-top:16px">
@@ -1315,9 +1355,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Impuestos (ICA+DIAN) Central</div><div class="day-row-val" style="color:#dc2626">$ 210.000.000</div></div><div class="day-row"><div class="day-row-name">Impuestos (ICA+DIAN) Team</div><div class="day-row-val" style="color:#dc2626">$ 86.000</div></div><div class="day-row"><div class="day-row-name">INVINMO S.A.S</div><div class="day-row-val" style="color:#dc2626">$ 14.221.687</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 688.367</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 334</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 224.996.388</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 224.996.388</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 179.553.609</div></div>
       </div>
     </div><div id="dp-18" class="day-panel" style="display:none;margin-top:16px">
@@ -1329,9 +1371,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 179.553.672</div></div>
       </div>
     </div><div id="dp-19" class="day-panel" style="display:none;margin-top:16px">
@@ -1343,9 +1387,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Caja Menor</div><div class="day-row-val" style="color:#dc2626">$ 1.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 4.344</div></div><div class="day-row"><div class="day-row-name">Abono TC (COP)</div><div class="day-row-val" style="color:#dc2626">$ 86.093</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 1.090.437</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 1.090.437</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.297</div></div>
       </div>
     </div><div id="dp-20" class="day-panel" style="display:none;margin-top:16px">
@@ -1356,10 +1402,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 247.463.297</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.297</div></div>
       </div>
     </div><div id="dp-21" class="day-panel" style="display:none;margin-top:16px">
@@ -1370,10 +1418,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 247.463.297</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.297</div></div>
       </div>
     </div><div id="dp-22" class="day-panel" style="display:none;margin-top:16px">
@@ -1385,9 +1435,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.484</div></div>
       </div>
     </div><div id="dp-23" class="day-panel" style="display:none;margin-top:16px">
@@ -1399,9 +1451,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 92.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 339.463.547</div></div>
       </div>
     </div><div id="dp-24" class="day-panel" style="display:none;margin-top:16px">
@@ -1410,12 +1464,14 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
         <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
       </div>
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 339.463.547</strong></div>
-      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#16a34a">$ 170.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
-      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Edgeuno SAS (Central)</div><div class="day-row-val" style="color:#dc2626">$ 12.582.818</div></div><div class="day-row"><div class="day-row-name">Edgeuno SAS (Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 63.869.774</div></div><div class="day-row"><div class="day-row-name">Sistemas Admin. e Ing. SAS</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#dc2626">$ 170.000.000</div></div><div class="day-row"><div class="day-row-name">Asylum Marketing SAS</div><div class="day-row-val" style="color:#dc2626">$ 9.775.000</div></div><div class="day-row"><div class="day-row-name">John Alexander Sánchez (LUOKA)</div><div class="day-row-val" style="color:#dc2626">$ 8.989.571</div></div><div class="day-row"><div class="day-row-name">Números y Soluciones SAS</div><div class="day-row-val" style="color:#dc2626">$ 6.723.862</div></div><div class="day-row"><div class="day-row-name">Hive Solutions SAS</div><div class="day-row-val" style="color:#dc2626">$ 3.484.500</div></div><div class="day-row"><div class="day-row-name">Equity Advisors S.A.S.</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Coorserpark</div><div class="day-row-val" style="color:#dc2626">$ 54.800</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 544.990</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 727.399</div></div><div class="day-row"><div class="day-row-name">Gadier Sistemas Profesionales de Información</div><div class="day-row-val" style="color:#dc2626">$ 269.578</div></div><div class="day-row"><div class="day-row-name">Siegenthaler & Co Sas</div><div class="day-row-val" style="color:#dc2626">$ 73.372.669</div></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Edgeuno SAS (Central)</div><div class="day-row-val" style="color:#dc2626">$ 12.582.818</div></div><div class="day-row"><div class="day-row-name">Edgeuno SAS (Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 63.869.774</div></div><div class="day-row"><div class="day-row-name">Sistemas Admin. e Ing. SAS</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Asylum Marketing SAS</div><div class="day-row-val" style="color:#dc2626">$ 9.775.000</div></div><div class="day-row"><div class="day-row-name">John Alexander Sánchez (LUOKA)</div><div class="day-row-val" style="color:#dc2626">$ 8.989.571</div></div><div class="day-row"><div class="day-row-name">Números y Soluciones SAS</div><div class="day-row-val" style="color:#dc2626">$ 6.723.862</div></div><div class="day-row"><div class="day-row-name">Hive Solutions SAS</div><div class="day-row-val" style="color:#dc2626">$ 3.484.500</div></div><div class="day-row"><div class="day-row-name">Equity Advisors S.A.S.</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Coorserpark</div><div class="day-row-val" style="color:#dc2626">$ 54.800</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 544.990</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 727.399</div></div><div class="day-row"><div class="day-row-name">Gadier Sistemas Profesionales de Información</div><div class="day-row-val" style="color:#dc2626">$ 269.578</div></div><div class="day-row"><div class="day-row-name">Siegenthaler & Co Sas</div><div class="day-row-val" style="color:#dc2626">$ 73.372.669</div></div>
+      <div class="day-section-title" style="color:#f97316">↔ Transferencias internas</div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#7c3aed">$ 170.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#f97316">$ 170.000.000</div></div>
       
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 170.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 382.535.161</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 212.535.161</div></div>
+        <div class="day-total-box"><div class="day-total-label">Transferencias</div><div class="day-total-val" style="color:#f97316">▲ $ 170.000.000 ▼ $ 170.000.000</div></div>
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 126.928.448</div></div>
       </div>
     </div><div id="dp-25" class="day-panel" style="display:none;margin-top:16px">
@@ -1427,9 +1483,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 126.928.510</div></div>
       </div>
     </div><div id="dp-26" class="day-panel" style="display:none;margin-top:16px">
@@ -1438,12 +1496,14 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
         <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
       </div>
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 126.928.510</strong></div>
-      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#16a34a">$ 62.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
-      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 60.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#dc2626">$ 62.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 678.609</div></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 60.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 678.609</div></div>
+      <div class="day-section-title" style="color:#f97316">↔ Transferencias internas</div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#7c3aed">$ 62.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#f97316">$ 62.000.000</div></div>
       
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 131.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 122.678.609</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 60.678.609</div></div>
+        <div class="day-total-box"><div class="day-total-label">Transferencias</div><div class="day-total-val" style="color:#f97316">▲ $ 62.000.000 ▼ $ 62.000.000</div></div>
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 135.249.964</div></div>
       </div>
     </div><div id="dp-27" class="day-panel" style="display:none;margin-top:16px">
@@ -1454,10 +1514,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 135.249.964</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 135.249.964</div></div>
       </div>
     </div><div id="dp-28" class="day-panel" style="display:none;margin-top:16px">
@@ -1468,10 +1530,12 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 135.249.964</strong></div>
       
       
+      
       <div class="empty" style="padding:20px">Sin movimientos este día</div>
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        
+        
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 135.249.964</div></div>
       </div>
     </div><div id="dp-29" class="day-panel" style="display:none;margin-top:16px">
@@ -1483,9 +1547,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Enel (Servicio Luz)</div><div class="day-row-val" style="color:#dc2626">$ 740.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 2.960</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 742.960</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 742.960</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 134.507.191</div></div>
       </div>
     </div><div id="dp-30" class="day-panel" style="display:none;margin-top:16px">
@@ -1497,9 +1563,11 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 92.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
       <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Nómina (1Q y 2Q)</div><div class="day-row-val" style="color:#dc2626">$ 52.265.452</div></div><div class="day-row"><div class="day-row-name">Nómina Erika Tarazona</div><div class="day-row-val" style="color:#dc2626">$ 1.734.548</div></div><div class="day-row"><div class="day-row-name">Pago Crédito OCCI</div><div class="day-row-val" style="color:#dc2626">$ 500.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 216.000</div></div>
       
+      
       <div class="day-totals">
-        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
-        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 554.216.000</div></div>
+        <div class="day-total-box"><div class="day-total-label">Ingresos reales</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos reales</div><div class="day-total-val" style="color:#dc2626">$ 554.216.000</div></div>
+        
         <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#dc2626">-$ 327.708.746</div></div>
       </div>
     </div></div>
@@ -1509,8 +1577,8 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
   <div id="pane-ejecucion" class="pane">
     <div class="ejec-summary">
       <div class="ejec-kpi" style="--kc:#2563eb"><div class="ejec-kpi-label">Movimientos registrados</div><div class="ejec-kpi-val">41 / 102</div><div class="ejec-kpi-sub">40% del mes ingresado</div></div>
-      <div class="ejec-kpi" style="--kc:#16a34a"><div class="ejec-kpi-label">Ejecución Ingresos</div><div class="ejec-kpi-val">37%</div><div class="ejec-kpi-sub">Real $ 421.807.886 vs Proy $ 1.136.809.076</div></div>
-      <div class="ejec-kpi" style="--kc:#dc2626"><div class="ejec-kpi-label">Ejecución Egresos</div><div class="ejec-kpi-val">14%</div><div class="ejec-kpi-sub">Real $ 229.417.897 vs Proy $ 1.597.995.653</div></div>
+      <div class="ejec-kpi" style="--kc:#16a34a"><div class="ejec-kpi-label">Ejecución Ingresos</div><div class="ejec-kpi-val">44%</div><div class="ejec-kpi-sub">Real $ 381.807.886 vs Proy $ 864.809.076</div></div>
+      <div class="ejec-kpi" style="--kc:#dc2626"><div class="ejec-kpi-label">Ejecución Egresos</div><div class="ejec-kpi-val">14%</div><div class="ejec-kpi-sub">Real $ 189.417.897 vs Proy $ 1.325.995.653</div></div>
       <div class="ejec-kpi" style="--c:#7c3aed" style="--kc:#7c3aed"><div class="ejec-kpi-label">Saldo neto real</div><div class="ejec-kpi-val">$ 192.389.989</div><div class="ejec-kpi-sub">Proyectado: -$ 461.186.576</div></div>
     </div>
     <div class="card" style="padding:0;overflow:hidden">
@@ -1521,7 +1589,7 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
           <th class="r">Diferencia</th><th class="r" style="min-width:140px">% Ejecución</th>
         </tr></thead>
         <tbody>
-          <tr class="section-header"><td colspan="6"><span class="section-badge badge-ing">INGRESOS</span> &nbsp; Proy: $ 1.136.809.076 · Real: $ 421.807.886 · <strong>37%</strong></td></tr>
+          <tr class="section-header"><td colspan="6"><span class="section-badge badge-ing">INGRESOS</span> &nbsp; Proy: $ 864.809.076 · Real: $ 381.807.886 · <strong>44%</strong></td></tr>
           <tr style="background:">
         <td style="text-align:center">🔴</td>
         <td>Retiros Pasarela<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
@@ -1551,7 +1619,7 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
         <td class="r"style="color:#16a34a">-$ 1.191</td>
         <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">36%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:36%;background:#dc2626"></div></div></div></td>
       </tr>
-          <tr class="section-header"><td colspan="6"><span class="section-badge badge-egr">EGRESOS</span> &nbsp; Proy: $ 1.597.995.653 · Real: $ 229.417.897 · <strong>14%</strong></td></tr>
+          <tr class="section-header"><td colspan="6"><span class="section-badge badge-egr">EGRESOS</span> &nbsp; Proy: $ 1.325.995.653 · Real: $ 189.417.897 · <strong>14%</strong></td></tr>
           <tr style="background:">
         <td style="text-align:center">⬜</td>
         <td>Pago Crédito OCCI<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
