@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Flujo de Caja — Marzo 2026 — Solo Lectura</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:#f1f5f9;color:#1e293b;min-height:100vh;}
+::-webkit-scrollbar{width:5px;height:5px;}::-webkit-scrollbar-track{background:#f1f5f9;}::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px;}
+.ro-banner{background:#7c3aed;color:#fff;text-align:center;padding:7px;font-size:11px;font-weight:600;letter-spacing:.5px;}
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 28px;}
+.header-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.company{font-size:18px;font-weight:700;color:#1e3a8a;}.subtitle{font-size:12px;color:#64748b;margin-top:2px;}
+.kpis{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;}
+.kpi{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 18px;min-width:150px;flex:1;border-top:3px solid var(--c);}
+.kpi-label{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;font-weight:600;}
+.kpi-val{font-size:20px;font-weight:700;color:var(--c);margin-top:3px;}.kpi-full{font-size:10px;color:#94a3b8;margin-top:1px;}
+.tabs{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 28px;display:flex;}
+.tab{padding:10px 18px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;transition:all .15s;font-family:inherit;}
+.tab:hover{color:#1e3a8a;}.tab.active{color:#1e3a8a;font-weight:700;border-bottom:2px solid #2563eb;}
+.content{padding:20px 28px;}.pane{display:none;}.pane.active{display:block;}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-bottom:16px;}
+.card-title{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;}
+.tbl-wrap{overflow-x:auto;border:1px solid #e2e8f0;border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead tr{background:#f8fafc;}
+th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e2e8f0;white-space:nowrap;}
+th.num{text-align:right;}th.r{text-align:right;}
+td{padding:9px 14px;border-bottom:1px solid #f1f5f9;color:#334155;}td.num{text-align:right;font-weight:600;}td.r{text-align:right;}
+tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600;}
+.pill.ing{background:#dcfce7;color:#15803d;}.pill.egr{background:#fee2e2;color:#dc2626;}
+.origen-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px;}
+.origen-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;border-top:4px solid var(--oc);}
+.origen-card-name{font-size:13px;font-weight:700;color:var(--oc);margin-bottom:10px;}
+.origen-card-row{display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid #f1f5f9;}
+.origen-card-row span:first-child{color:#64748b;}
+.saldo-final-row{background:#f0f9ff;border-radius:6px;padding:5px 8px;margin-top:6px;display:flex;justify-content:space-between;align-items:center;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.empty{text-align:center;padding:40px;color:#94a3b8;font-size:13px;}
+.chip{padding:5px 14px;border-radius:99px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid #e2e8f0;background:#fff;color:#64748b;font-family:inherit;transition:all .15s;}
+.chip.act-all{background:#1e3a8a;color:#fff;border-color:#1e3a8a;}
+.chip.act-ing{background:#16a34a;color:#fff;border-color:#16a34a;}
+.chip.act-egr{background:#dc2626;color:#fff;border-color:#dc2626;}
+.chip.act-principal{background:#1d4ed8;color:#fff;border-color:#1d4ed8;}
+.chip.act-consorcio{background:#15803d;color:#fff;border-color:#15803d;}
+.chip.act-ahorros{background:#7c3aed;color:#fff;border-color:#7c3aed;}
+.search-box{border:1px solid #e2e8f0;border-radius:8px;padding:7px 12px;font-size:12px;font-family:inherit;outline:none;min-width:180px;transition:border-color .15s;}
+.search-box:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.08);}
+/* Calendar */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.cal-day-name{text-align:center;font-size:10px;font-weight:700;color:#94a3b8;padding:4px 0;}
+.cal-day{border:1px solid #e2e8f0;border-radius:8px;padding:8px;min-height:88px;background:#fff;cursor:pointer;transition:all .15s;}
+.cal-day:hover{border-color:#93c5fd;box-shadow:0 2px 8px rgba(37,99,235,.1);}
+.cal-day.has-act{border-color:#bfdbfe;background:#f0f7ff;}
+.cal-day.critical{border-color:#fca5a5;background:#fff5f5;}
+.cal-day.selected{border-color:#2563eb!important;background:#eff6ff!important;box-shadow:0 0 0 2px #bfdbfe;}
+.cal-day-num{font-weight:700;font-size:13px;color:#475569;margin-bottom:4px;}
+.cal-day.critical .cal-day-num{color:#dc2626;}
+.cal-day.selected .cal-day-num{color:#1d4ed8;}
+.cal-ing{font-size:9px;color:#15803d;font-weight:600;margin-bottom:1px;}
+.cal-egr{font-size:9px;color:#dc2626;font-weight:600;margin-bottom:1px;}
+.cal-saldo{font-size:9px;color:#94a3b8;border-top:1px solid #f1f5f9;padding-top:3px;margin-top:3px;}
+.cal-saldo.neg{color:#dc2626;font-weight:700;}
+.day-panel{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:20px;}
+.day-panel-title{font-size:14px;font-weight:700;color:#1e3a8a;margin-bottom:4px;}
+.day-panel-sub{font-size:11px;color:#64748b;margin-bottom:16px;}
+.day-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;margin-top:14px;}
+.day-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9;}
+.day-row:last-child{border-bottom:none;}
+.day-row-name{font-size:12px;color:#334155;}.day-row-val{font-size:12px;font-weight:700;}
+.day-totals{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:2px solid #e2e8f0;}
+.day-total-box{flex:1;min-width:120px;background:#f8fafc;border-radius:8px;padding:10px 14px;}
+.day-total-label{font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.day-total-val{font-size:15px;font-weight:700;margin-top:2px;}
+/* Ejecucion */
+.ejec-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
+.ejec-kpi{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px;border-left:4px solid var(--kc);}
+.ejec-kpi-label{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+.ejec-kpi-val{font-size:18px;font-weight:800;color:var(--kc);}.ejec-kpi-sub{font-size:11px;color:#64748b;margin-top:2px;}
+.ejec-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.ejec-tbl th{background:#f8fafc;padding:9px 12px;text-align:left;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid #e2e8f0;}
+.ejec-tbl th.r{text-align:right;}.ejec-tbl td{padding:8px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle;}
+.ejec-tbl td.r{text-align:right;}.ejec-tbl tr:hover td{background:#f8fafc;}
+.ejec-tbl tr.section-header td{background:#f0f7ff;font-weight:700;font-size:11px;color:#1e3a8a;padding:6px 12px;}
+.ejec-tbl tr.grand-total td{background:#1e3a8a;color:#fff;font-weight:700;font-size:12px;}
+.section-badge{padding:4px 12px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.badge-ing{background:#dcfce7;color:#15803d;}.badge-egr{background:#fee2e2;color:#dc2626;}
+.legend{display:flex;gap:16px;margin-top:10px;font-size:11px;color:#94a3b8;flex-wrap:wrap;}
+.watermark{text-align:center;padding:16px;font-size:11px;color:#cbd5e1;border-top:1px solid #e2e8f0;margin-top:8px;}
+@media(max-width:700px){.grid2{grid-template-columns:1fr;}.kpi{min-width:130px;}.kpi-val{font-size:16px;}}
+</style>
+</head>
+<body>
+
+<div class="ro-banner">📋 DOCUMENTO DE SOLO LECTURA — Marzo 2026 — Generado el jueves, 12 de marzo de 2026</div>
+
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div style="font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:2px">Control de Tesorería</div>
+      <div class="company">Central Comercializadora de Internet SAS</div>
+      <div class="subtitle">Flujo de Caja Proyectado — Marzo 2026</div>
+    </div>
+    <div style="font-size:11px;color:#7c3aed;font-weight:600;background:#f3f0ff;border:1px solid #c4b5fd;border-radius:8px;padding:8px 16px">
+      🔒 Solo lectura · 41/102 movimientos con real (40%)
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi" style="--c:#f59e0b"><div class="kpi-label">Saldo Inicial</div><div class="kpi-val">$133.5M</div><div class="kpi-full">$ 133.477.830</div></div>
+    <div class="kpi" style="--c:#16a34a"><div class="kpi-label">Total Ingresos</div><div class="kpi-val">$1.14B</div><div class="kpi-full">$ 1.136.809.076</div></div>
+    <div class="kpi" style="--c:#dc2626"><div class="kpi-label">Total Egresos</div><div class="kpi-val">$1.60B</div><div class="kpi-full">$ 1.597.995.653</div></div>
+    <div class="kpi" style="--c:#dc2626"><div class="kpi-label">Saldo Cierre (Día 31)</div><div class="kpi-val">-$327.7M ⚠️</div><div class="kpi-full">-$ 327.708.746</div></div>
+    <div class="kpi" style="--c:#7c3aed"><div class="kpi-label">Saldo Neto Real</div><div class="kpi-val">$192.4M</div><div class="kpi-full">$ 192.389.989</div></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('resumen',this)">📋 Resumen</button>
+  <button class="tab" onclick="showTab('pagos',this)">💳 Pagos</button>
+  <button class="tab" onclick="showTab('calendario',this)">📅 Calendario</button>
+  <button class="tab" onclick="showTab('ejecucion',this)">📊 Ejecución</button>
+</div>
+
+<div class="content">
+
+  <!-- RESUMEN -->
+  <div id="pane-resumen" class="pane active">
+    <div class="card">
+      <div class="card-title">Evolución del Saldo Diario — pase el cursor sobre una barra para ver el detalle</div>
+      <div style="position:relative">
+        <canvas id="bar-chart" height="110" style="width:100%;cursor:crosshair"></canvas>
+        <div id="bar-tt" style="position:fixed;background:#1e293b;color:#fff;padding:6px 11px;border-radius:7px;font-size:12px;font-weight:600;pointer-events:none;display:none;z-index:999;box-shadow:0 4px 12px rgba(0,0,0,.25);white-space:nowrap"></div>
+      </div>
+      <div class="legend">
+        <span><span style="color:#2563eb">■</span> Normal</span>
+        <span><span style="color:#f59e0b">■</span> Bajo (&lt;$50M)</span>
+        <span><span style="color:#ef4444">■</span> Negativo</span>
+      </div>
+    </div>
+    <div class="origen-summary"><div class="origen-card" style="--oc:#1d4ed8">
+      <div class="origen-card-name">🏦 Principal</div>
+      <div class="origen-card-row"><span>Saldo inicial</span><span>$ 86.469.439</span></div>
+      <div class="origen-card-row"><span>▲ Ingresos</span><span style="color:#16a34a">$ 864.807.203</span></div>
+      <div class="origen-card-row"><span>▼ Egresos</span><span style="color:#dc2626">$ 1.324.946.423</span></div>
+      <div class="saldo-final-row"><span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Saldo final</span><span style="font-size:13px;font-weight:800;color:#dc2626">-$ 373.669.781</span></div>
+      
+    </div><div class="origen-card" style="--oc:#15803d">
+      <div class="origen-card-name">🤝 Consorcio</div>
+      <div class="origen-card-row"><span>Saldo inicial</span><span>$ 1.422.734</span></div>
+      <div class="origen-card-row"><span>▲ Transferencias</span><span style="color:#16a34a">$ 272.000.000</span></div>
+      <div class="origen-card-row"><span>▼ Egresos</span><span style="color:#dc2626">$ 273.049.230</span></div>
+      <div class="saldo-final-row"><span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Saldo final</span><span style="font-size:13px;font-weight:800;color:#15803d">$ 373.504</span></div>
+      
+    </div><div class="origen-card" style="--oc:#7c3aed">
+      <div class="origen-card-name">💰 Ahorros</div>
+      <div class="origen-card-row"><span>Saldo inicial</span><span>$ 45.585.657</span></div>
+      <div class="origen-card-row"><span>▲ Ingresos</span><span style="color:#16a34a">$ 1.874</span></div>
+      <div class="origen-card-row"><span>▼ Egresos</span><span style="color:#dc2626">$ 0</span></div>
+      <div class="saldo-final-row"><span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Saldo final</span><span style="font-size:13px;font-weight:800;color:#7c3aed">$ 45.587.531</span></div>
+      
+    </div></div>
+    <div class="grid2">
+      <div class="card"><div class="card-title" style="color:#dc2626">▼ Principales Egresos</div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Pago Crédito OCCI</div><div style="font-size:10px;color:#94a3b8">Día 31</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 500.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Impuestos (ICA+DIAN) Central</div><div style="font-size:10px;color:#94a3b8">Día 18</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 210.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Transferencia Central→Registry</div><div style="font-size:10px;color:#94a3b8">Día 25</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 170.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Giros Internacionales</div><div style="font-size:10px;color:#94a3b8">Día 4</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 75.610.384</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Siegenthaler & Co Sas</div><div style="font-size:10px;color:#94a3b8">Día 25</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 73.372.669</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Edgeuno SAS (Consorcio)</div><div style="font-size:10px;color:#94a3b8">Día 25</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 63.869.774</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Transferencia Central→Registry</div><div style="font-size:10px;color:#94a3b8">Día 27</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 62.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div style="font-size:10px;color:#94a3b8">Día 27</div></div><div style="font-size:12px;font-weight:700;color:#dc2626">$ 60.000.000</div></div></div>
+      <div class="card"><div class="card-title" style="color:#16a34a">▲ Principales Ingresos</div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Transferencia Interna</div><div style="font-size:10px;color:#94a3b8">Día 25</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 170.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Pago Clientes/Anticipos/TIDIS</div><div style="font-size:10px;color:#94a3b8">Día 2</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 102.000.123</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Retiros Pasarela</div><div style="font-size:10px;color:#94a3b8">Día 17</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 92.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Retiros Pasarela</div><div style="font-size:10px;color:#94a3b8">Día 24</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 92.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Retiros Pasarela</div><div style="font-size:10px;color:#94a3b8">Día 31</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 92.000.000</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Retiros Pasarela</div><div style="font-size:10px;color:#94a3b8">Día 6</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 84.600.123</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Retiros Pasarela</div><div style="font-size:10px;color:#94a3b8">Día 10</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 74.800.123</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f1f5f9"><div><div style="font-size:12px;color:#334155">Retiros Pasarela</div><div style="font-size:10px;color:#94a3b8">Día 13</div></div><div style="font-size:12px;font-weight:700;color:#16a34a">$ 69.000.000</div></div></div>
+    </div>
+  </div>
+
+  <!-- PAGOS -->
+  <div id="pane-pagos" class="pane">
+    <div style="display:flex;gap:8px;margin-bottom:16px;align-items:center;flex-wrap:wrap">
+      <button class="chip act-all" id="ch-todos" onclick="fP('todos',this)">Todos</button>
+      <button class="chip" id="ch-ingreso" onclick="fP('ingreso',this)">▲ Ingresos</button>
+      <button class="chip" id="ch-egreso" onclick="fP('egreso',this)">▼ Egresos</button>
+      <div style="width:1px;height:24px;background:#e2e8f0;margin:0 2px"></div>
+      <button class="chip" id="ch-Principal" onclick="fP('Principal',this)">🏦 Principal</button>
+      <button class="chip" id="ch-Consorcio" onclick="fP('Consorcio',this)">🤝 Consorcio</button>
+      <button class="chip" id="ch-Ahorros" onclick="fP('Ahorros',this)">💰 Ahorros</button>
+      <input class="search-box" id="psearch" type="text" placeholder="🔍 Buscar concepto..." oninput="fP('search',null)"/>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Día</th><th>Concepto</th><th>Tipo</th><th class="num">Proyectado</th><th class="num" style="color:#7c3aed">Real</th><th style="text-align:center">✓</th><th>Cuenta</th></tr></thead>
+        <tbody id="ptbody"><tr data-tipo="ingreso" data-origen="Principal" data-name="pago clientes/anticipos/tidis">
+      <td>2</td><td>Pago Clientes/Anticipos/TIDIS</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 102.000.123</td>
+      <td class="num" style="color:#16a34a">$ 102.000.123</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Consorcio" data-name="transferencia interna">
+      <td>2</td><td>Transferencia Interna</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 40.000.000</td>
+      <td class="num" style="color:#16a34a">$ 40.000.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>2</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="préstamos invinmo">
+      <td>2</td><td>Préstamos INVINMO</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 49.284.000</td>
+      <td class="num" style="color:#dc2626">$ 49.284.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="transferencia central→registry">
+      <td>2</td><td>Transferencia Central→Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 40.000.000</td>
+      <td class="num" style="color:#dc2626">$ 40.000.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="enel (servicio luz)">
+      <td>2</td><td>Enel (Servicio Luz)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 734.180</td>
+      <td class="num" style="color:#dc2626">$ 734.180</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="coorserpark">
+      <td>2</td><td>Coorserpark</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 54.800</td>
+      <td class="num" style="color:#dc2626">$ 54.800</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>2</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 332.791</td>
+      <td class="num" style="color:#dc2626">$ 332.791</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>3</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 56.400.123</td>
+      <td class="num" style="color:#16a34a">$ 56.400.123</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>3</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="sistemas admin. e ing. sas">
+      <td>3</td><td>Sistemas Admin. e Ing. SAS</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 16.070.100</td>
+      <td class="num" style="color:#dc2626">$ 16.070.100</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impto/comisiones registry">
+      <td>3</td><td>Impto/Comisiones Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 74.077</td>
+      <td class="num" style="color:#dc2626">$ 74.007</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="pago clientes/anticipos/tidis">
+      <td>4</td><td>Pago Clientes/Anticipos/TIDIS</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 53.116.201</td>
+      <td class="num" style="color:#16a34a">$ 53.116.201</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>4</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="giros internacionales">
+      <td>4</td><td>Giros Internacionales</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 75.610.384</td>
+      <td class="num" style="color:#dc2626">$ 75.610.384</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>4</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 302.442</td>
+      <td class="num" style="color:#dc2626">$ 302.442</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="pago clientes/anticipos/tidis">
+      <td>5</td><td>Pago Clientes/Anticipos/TIDIS</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 2.756.914</td>
+      <td class="num" style="color:#16a34a">$ 2.756.914</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>5</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>5</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 43.594</td>
+      <td class="num" style="color:#dc2626">$ 43.594</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="cuenta de cobro luis duran">
+      <td>5</td><td>Cuenta de Cobro Luis Duran</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 5.300.000</td>
+      <td class="num" style="color:#dc2626">$ 5.300.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="cuenta de cobro jose hugo bohorquez">
+      <td>5</td><td>Cuenta de cobro Jose Hugo Bohorquez</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 700.000</td>
+      <td class="num" style="color:#dc2626">$ 700.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>6</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 84.600.123</td>
+      <td class="num" style="color:#16a34a">$ 84.600.123</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="pago clientes/anticipos/tidis">
+      <td>6</td><td>Pago Clientes/Anticipos/TIDIS</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 3.143.783</td>
+      <td class="num" style="color:#16a34a">$ 3.143.783</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>6</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="pago clientes/anticipos/tidis">
+      <td>9</td><td>Pago Clientes/Anticipos/TIDIS</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 94.234</td>
+      <td class="num" style="color:#16a34a">$ 94.234</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>9</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 187</td>
+      <td class="num" style="color:#16a34a">$ 187</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>10</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 74.800.123</td>
+      <td class="num" style="color:#16a34a">$ 74.800.123</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="pago clientes/anticipos/tidis">
+      <td>10</td><td>Pago Clientes/Anticipos/TIDIS</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 4.895.579</td>
+      <td class="num" style="color:#16a34a">$ 4.895.579</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>10</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="mi planilla (aportes+cesantías)">
+      <td>10</td><td>Mi Planilla (Aportes+Cesantías)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 18.270.900</td>
+      <td class="num" style="color:#dc2626">$ 18.270.900</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="giros fiducia (occi/aval/consorcio)">
+      <td>10</td><td>Giros Fiducia (OCCI/AVAL/Consorcio)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 6.100.000</td>
+      <td class="num" style="color:#dc2626">$ 6.100.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="póliza seguros mundial">
+      <td>10</td><td>Póliza Seguros Mundial</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 275.633</td>
+      <td class="num" style="color:#dc2626">$ 275.633</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>10</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 98.586</td>
+      <td class="num" style="color:#dc2626">$ 98.586</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impto/comisiones registry">
+      <td>10</td><td>Impto/Comisiones Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 33.565</td>
+      <td class="num" style="color:#dc2626">$ 33.565</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="cuenta de cobro paula irene tejada">
+      <td>10</td><td>Cuenta de Cobro Paula Irene Tejada</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 5.942.040</td>
+      <td class="num" style="color:#dc2626">$ 5.942.040</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>11</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name=".pe">
+      <td>11</td><td>.PE</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 140.516</td>
+      <td class="num" style="color:#dc2626">$ 140.516</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>11</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 562</td>
+      <td class="num" style="color:#dc2626">$ 562</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>12</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="préstamos invinmo">
+      <td>12</td><td>Préstamos INVINMO</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 10.000.000</td>
+      <td class="num" style="color:#dc2626">$ 10.000.000</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>12</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 49.797</td>
+      <td class="num" style="color:#dc2626">$ 49.797</td>
+      <td style="text-align:center">🟢</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>13</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 69.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>13</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="nómina (1q y 2q)">
+      <td>13</td><td>Nómina (1Q y 2Q)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 38.865.452</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="nómina erika tarazona">
+      <td>13</td><td>Nómina Erika Tarazona</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 1.734.548</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="giros fiducia (occi/aval/consorcio)">
+      <td>13</td><td>Giros Fiducia (OCCI/AVAL/Consorcio)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 15.626.827</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="abonos tc (usd)">
+      <td>13</td><td>Abonos TC (USD)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 23.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="plan complementario compensar">
+      <td>13</td><td>Plan Complementario Compensar</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 1.471.680</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="comcel claro hogar">
+      <td>13</td><td>Comcel Claro Hogar</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 180.301</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="comcel claro móvil">
+      <td>13</td><td>Comcel Claro Móvil</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 241.617</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>13</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 508.744</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impto/comisiones registry">
+      <td>13</td><td>Impto/Comisiones Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 688.962</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>16</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 187</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>17</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 92.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>17</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>18</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impuestos (ica+dian) central">
+      <td>18</td><td>Impuestos (ICA+DIAN) Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#dc2626">$ 210.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impuestos (ica+dian) team">
+      <td>18</td><td>Impuestos (ICA+DIAN) Team</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 86.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="invinmo s.a.s">
+      <td>18</td><td>INVINMO S.A.S</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 14.221.687</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>18</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 688.367</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impto/comisiones registry">
+      <td>18</td><td>Impto/Comisiones Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 334</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>19</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>20</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 69.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>20</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="caja menor">
+      <td>20</td><td>Caja Menor</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 1.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>20</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 4.344</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="abono tc (cop)">
+      <td>20</td><td>Abono TC (COP)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 86.093</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>23</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 187</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>24</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 92.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>24</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Consorcio" data-name="transferencia interna">
+      <td>25</td><td>Transferencia Interna</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 170.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>25</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="edgeuno sas (central)">
+      <td>25</td><td>Edgeuno SAS (Central)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 12.582.818</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="edgeuno sas (consorcio)">
+      <td>25</td><td>Edgeuno SAS (Consorcio)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 63.869.774</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="sistemas admin. e ing. sas">
+      <td>25</td><td>Sistemas Admin. e Ing. SAS</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 16.070.100</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="transferencia central→registry">
+      <td>25</td><td>Transferencia Central→Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#dc2626">$ 170.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="asylum marketing sas">
+      <td>25</td><td>Asylum Marketing SAS</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 9.775.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="john alexander sánchez (luoka)">
+      <td>25</td><td>John Alexander Sánchez (LUOKA)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 8.989.571</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="números y soluciones sas">
+      <td>25</td><td>Números y Soluciones SAS</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 6.723.862</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="hive solutions sas">
+      <td>25</td><td>Hive Solutions SAS</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 3.484.500</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="equity advisors s.a.s.">
+      <td>25</td><td>Equity Advisors S.A.S.</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 16.070.100</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="coorserpark">
+      <td>25</td><td>Coorserpark</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 54.800</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>25</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 544.990</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impto/comisiones registry">
+      <td>25</td><td>Impto/Comisiones Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 727.399</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="gadier sistemas profesionales de información">
+      <td>25</td><td>Gadier Sistemas Profesionales de Información</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 269.578</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="siegenthaler & co sas">
+      <td>25</td><td>Siegenthaler & Co Sas</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 73.372.669</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>26</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>27</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 69.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Consorcio" data-name="transferencia interna">
+      <td>27</td><td>Transferencia Interna</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>27</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="giros fiducia (occi/aval/consorcio)">
+      <td>27</td><td>Giros Fiducia (OCCI/AVAL/Consorcio)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 60.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="transferencia central→registry">
+      <td>27</td><td>Transferencia Central→Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 62.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="impto/comisiones registry">
+      <td>27</td><td>Impto/Comisiones Registry</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 678.609</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>30</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 187</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="enel (servicio luz)">
+      <td>30</td><td>Enel (Servicio Luz)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 740.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>30</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 2.960</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Principal" data-name="retiros pasarela">
+      <td>31</td><td>Retiros Pasarela</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 92.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="ingreso" data-origen="Ahorros" data-name="intereses cuenta ahorros">
+      <td>31</td><td>Intereses Cuenta Ahorros</td>
+      <td><span class="pill ing">▲ Ingreso</span></td>
+      <td class="num" style="color:#16a34a">$ 62</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#ede9fe;color:#7c3aed">Ahorros</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="nómina (1q y 2q)">
+      <td>31</td><td>Nómina (1Q y 2Q)</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 52.265.452</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Consorcio" data-name="nómina erika tarazona">
+      <td>31</td><td>Nómina Erika Tarazona</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 1.734.548</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dcfce7;color:#15803d">Consorcio</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="pago crédito occi">
+      <td>31</td><td>Pago Crédito OCCI</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#dc2626">$ 500.000.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr><tr data-tipo="egreso" data-origen="Principal" data-name="impto/comisiones central">
+      <td>31</td><td>Impto/Comisiones Central</td>
+      <td><span class="pill egr">▼ Egreso</span></td>
+      <td class="num" style="color:#ef4444">$ 216.000</td>
+      <td class="num" style="color:#94a3b8">—</td>
+      <td style="text-align:center">⬜</td>
+      <td><span style="display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;background:#dbeafe;color:#1e3a8a">Principal</span></td>
+    </tr></tbody>
+      </table>
+    </div>
+    <div id="pcount" style="margin-top:10px;font-size:11px;color:#94a3b8"></div>
+  </div>
+
+  <!-- CALENDARIO -->
+  <div id="pane-calendario" class="pane">
+    <div class="card">
+      <div class="cal-grid"><div class="cal-day-name">Lun</div><div class="cal-day-name">Mar</div><div class="cal-day-name">Mié</div><div class="cal-day-name">Jue</div><div class="cal-day-name">Vie</div><div class="cal-day-name">Sáb</div><div class="cal-day-name">Dom</div><div></div><div></div><div></div><div></div><div></div><div></div><div class="cal-day " id="cd-0" onclick="selectDay(0)">
+      <div class="cal-day-num">1</div>
+      
+      
+      <div class="cal-saldo">$133.5M</div>
+    </div><div class="cal-day has-act" id="cd-1" onclick="selectDay(1)">
+      <div class="cal-day-num">2</div>
+      <div class="cal-ing">▲ $142.0M</div>
+      <div class="cal-egr">▼ $90.4M</div>
+      <div class="cal-saldo">$185.1M</div>
+    </div><div class="cal-day has-act" id="cd-2" onclick="selectDay(2)">
+      <div class="cal-day-num">3</div>
+      <div class="cal-ing">▲ $56.4M</div>
+      <div class="cal-egr">▼ $16.1M</div>
+      <div class="cal-saldo">$225.3M</div>
+    </div><div class="cal-day has-act" id="cd-3" onclick="selectDay(3)">
+      <div class="cal-day-num">4</div>
+      <div class="cal-ing">▲ $53.1M</div>
+      <div class="cal-egr">▼ $75.9M</div>
+      <div class="cal-saldo">$202.5M</div>
+    </div><div class="cal-day has-act" id="cd-4" onclick="selectDay(4)">
+      <div class="cal-day-num">5</div>
+      <div class="cal-ing">▲ $2.8M</div>
+      <div class="cal-egr">▼ $6.0M</div>
+      <div class="cal-saldo">$199.2M</div>
+    </div><div class="cal-day has-act" id="cd-5" onclick="selectDay(5)">
+      <div class="cal-day-num">6</div>
+      <div class="cal-ing">▲ $87.7M</div>
+      
+      <div class="cal-saldo">$287.0M</div>
+    </div><div class="cal-day " id="cd-6" onclick="selectDay(6)">
+      <div class="cal-day-num">7</div>
+      
+      
+      <div class="cal-saldo">$287.0M</div>
+    </div><div class="cal-day " id="cd-7" onclick="selectDay(7)">
+      <div class="cal-day-num">8</div>
+      
+      
+      <div class="cal-saldo">$287.0M</div>
+    </div><div class="cal-day has-act" id="cd-8" onclick="selectDay(8)">
+      <div class="cal-day-num">9</div>
+      <div class="cal-ing">▲ $94K</div>
+      
+      <div class="cal-saldo">$287.1M</div>
+    </div><div class="cal-day has-act" id="cd-9" onclick="selectDay(9)">
+      <div class="cal-day-num">10</div>
+      <div class="cal-ing">▲ $79.7M</div>
+      <div class="cal-egr">▼ $30.7M</div>
+      <div class="cal-saldo">$336.1M</div>
+    </div><div class="cal-day has-act" id="cd-10" onclick="selectDay(10)">
+      <div class="cal-day-num">11</div>
+      <div class="cal-ing">▲ $62</div>
+      <div class="cal-egr">▼ $141K</div>
+      <div class="cal-saldo">$335.9M</div>
+    </div><div class="cal-day has-act" id="cd-11" onclick="selectDay(11)">
+      <div class="cal-day-num">12</div>
+      <div class="cal-ing">▲ $62</div>
+      <div class="cal-egr">▼ $10.0M</div>
+      <div class="cal-saldo">$325.9M</div>
+    </div><div class="cal-day has-act" id="cd-12" onclick="selectDay(12)">
+      <div class="cal-day-num">13</div>
+      <div class="cal-ing">▲ $69.0M</div>
+      <div class="cal-egr">▼ $82.3M</div>
+      <div class="cal-saldo">$312.5M</div>
+    </div><div class="cal-day " id="cd-13" onclick="selectDay(13)">
+      <div class="cal-day-num">14</div>
+      
+      
+      <div class="cal-saldo">$312.5M</div>
+    </div><div class="cal-day " id="cd-14" onclick="selectDay(14)">
+      <div class="cal-day-num">15</div>
+      
+      
+      <div class="cal-saldo">$312.5M</div>
+    </div><div class="cal-day has-act" id="cd-15" onclick="selectDay(15)">
+      <div class="cal-day-num">16</div>
+      <div class="cal-ing">▲ $187</div>
+      
+      <div class="cal-saldo">$312.5M</div>
+    </div><div class="cal-day has-act" id="cd-16" onclick="selectDay(16)">
+      <div class="cal-day-num">17</div>
+      <div class="cal-ing">▲ $92.0M</div>
+      
+      <div class="cal-saldo">$404.5M</div>
+    </div><div class="cal-day critical" id="cd-17" onclick="selectDay(17)">
+      <div class="cal-day-num">18</div>
+      <div class="cal-ing">▲ $62</div>
+      <div class="cal-egr">▼ $225.0M</div>
+      <div class="cal-saldo">$179.6M</div>
+    </div><div class="cal-day has-act" id="cd-18" onclick="selectDay(18)">
+      <div class="cal-day-num">19</div>
+      <div class="cal-ing">▲ $62</div>
+      
+      <div class="cal-saldo">$179.6M</div>
+    </div><div class="cal-day has-act" id="cd-19" onclick="selectDay(19)">
+      <div class="cal-day-num">20</div>
+      <div class="cal-ing">▲ $69.0M</div>
+      <div class="cal-egr">▼ $1.1M</div>
+      <div class="cal-saldo">$247.5M</div>
+    </div><div class="cal-day " id="cd-20" onclick="selectDay(20)">
+      <div class="cal-day-num">21</div>
+      
+      
+      <div class="cal-saldo">$247.5M</div>
+    </div><div class="cal-day " id="cd-21" onclick="selectDay(21)">
+      <div class="cal-day-num">22</div>
+      
+      
+      <div class="cal-saldo">$247.5M</div>
+    </div><div class="cal-day has-act" id="cd-22" onclick="selectDay(22)">
+      <div class="cal-day-num">23</div>
+      <div class="cal-ing">▲ $187</div>
+      
+      <div class="cal-saldo">$247.5M</div>
+    </div><div class="cal-day has-act" id="cd-23" onclick="selectDay(23)">
+      <div class="cal-day-num">24</div>
+      <div class="cal-ing">▲ $92.0M</div>
+      
+      <div class="cal-saldo">$339.5M</div>
+    </div><div class="cal-day critical" id="cd-24" onclick="selectDay(24)">
+      <div class="cal-day-num">25</div>
+      <div class="cal-ing">▲ $170.0M</div>
+      <div class="cal-egr">▼ $382.5M</div>
+      <div class="cal-saldo">$126.9M</div>
+    </div><div class="cal-day has-act" id="cd-25" onclick="selectDay(25)">
+      <div class="cal-day-num">26</div>
+      <div class="cal-ing">▲ $62</div>
+      
+      <div class="cal-saldo">$126.9M</div>
+    </div><div class="cal-day has-act" id="cd-26" onclick="selectDay(26)">
+      <div class="cal-day-num">27</div>
+      <div class="cal-ing">▲ $131.0M</div>
+      <div class="cal-egr">▼ $122.7M</div>
+      <div class="cal-saldo">$135.2M</div>
+    </div><div class="cal-day " id="cd-27" onclick="selectDay(27)">
+      <div class="cal-day-num">28</div>
+      
+      
+      <div class="cal-saldo">$135.2M</div>
+    </div><div class="cal-day " id="cd-28" onclick="selectDay(28)">
+      <div class="cal-day-num">29</div>
+      
+      
+      <div class="cal-saldo">$135.2M</div>
+    </div><div class="cal-day has-act" id="cd-29" onclick="selectDay(29)">
+      <div class="cal-day-num">30</div>
+      <div class="cal-ing">▲ $187</div>
+      <div class="cal-egr">▼ $743K</div>
+      <div class="cal-saldo">$134.5M</div>
+    </div><div class="cal-day critical" id="cd-30" onclick="selectDay(30)">
+      <div class="cal-day-num">31</div>
+      <div class="cal-ing">▲ $92.0M</div>
+      <div class="cal-egr">▼ $554.2M</div>
+      <div class="cal-saldo neg">-$327.7M</div>
+    </div></div>
+      <div class="legend" style="margin-top:12px">
+        <span>▲ Ingresos &nbsp; ▼ Egresos &nbsp; Número = saldo al cierre</span>
+        <span style="color:#dc2626">🔴 Día crítico</span>
+        <span style="color:#2563eb">Haz clic en un día para ver el detalle</span>
+      </div>
+    </div>
+    <div id="day-panels"><div id="dp-0" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 1 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 133.477.830</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 133.477.830</div></div>
+      </div>
+    </div><div id="dp-1" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 2 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 133.477.830</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 102.000.123</div></div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#16a34a">$ 40.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Préstamos INVINMO</div><div class="day-row-val" style="color:#dc2626">$ 49.284.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#dc2626">$ 40.000.000</div></div><div class="day-row"><div class="day-row-name">Enel (Servicio Luz)</div><div class="day-row-val" style="color:#dc2626">$ 734.180</div></div><div class="day-row"><div class="day-row-name">Coorserpark</div><div class="day-row-val" style="color:#dc2626">$ 54.800</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 332.791</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 142.000.185</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 90.405.771</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 185.072.245</div></div>
+      </div>
+    </div><div id="dp-2" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 3 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 185.072.245</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 56.400.123</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Sistemas Admin. e Ing. SAS</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 74.077</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 56.400.185</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 16.144.177</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 225.328.253</div></div>
+      </div>
+    </div><div id="dp-3" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 4 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 225.328.253</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 53.116.201</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Giros Internacionales</div><div class="day-row-val" style="color:#dc2626">$ 75.610.384</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 302.442</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 53.116.263</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 75.912.825</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 202.531.691</div></div>
+      </div>
+    </div><div id="dp-4" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 5 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 202.531.691</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 2.756.914</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 43.594</div></div><div class="day-row"><div class="day-row-name">Cuenta de Cobro Luis Duran</div><div class="day-row-val" style="color:#dc2626">$ 5.300.000</div></div><div class="day-row"><div class="day-row-name">Cuenta de cobro Jose Hugo Bohorquez</div><div class="day-row-val" style="color:#dc2626">$ 700.000</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 2.756.976</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 6.043.594</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 199.245.073</div></div>
+      </div>
+    </div><div id="dp-5" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 6 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 199.245.073</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 84.600.123</div></div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 3.143.783</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 87.743.968</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 286.989.041</div></div>
+      </div>
+    </div><div id="dp-6" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 7 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 286.989.041</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 286.989.041</div></div>
+      </div>
+    </div><div id="dp-7" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 8 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 286.989.041</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 286.989.041</div></div>
+      </div>
+    </div><div id="dp-8" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 9 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 286.989.041</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 94.234</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 94.421</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 287.083.463</div></div>
+      </div>
+    </div><div id="dp-9" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 10 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 287.083.463</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 74.800.123</div></div><div class="day-row"><div class="day-row-name">Pago Clientes/Anticipos/TIDIS</div><div class="day-row-val" style="color:#16a34a">$ 4.895.579</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Mi Planilla (Aportes+Cesantías)</div><div class="day-row-val" style="color:#dc2626">$ 18.270.900</div></div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 6.100.000</div></div><div class="day-row"><div class="day-row-name">Póliza Seguros Mundial</div><div class="day-row-val" style="color:#dc2626">$ 275.633</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 98.586</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 33.565</div></div><div class="day-row"><div class="day-row-name">Cuenta de Cobro Paula Irene Tejada</div><div class="day-row-val" style="color:#dc2626">$ 5.942.040</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 79.695.764</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 30.720.724</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 336.058.503</div></div>
+      </div>
+    </div><div id="dp-10" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 11 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 336.058.503</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">.PE</div><div class="day-row-val" style="color:#dc2626">$ 140.516</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 562</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 141.078</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 335.917.487</div></div>
+      </div>
+    </div><div id="dp-11" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 12 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 335.917.487</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Préstamos INVINMO</div><div class="day-row-val" style="color:#dc2626">$ 10.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 49.797</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 10.049.797</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 325.867.753</div></div>
+      </div>
+    </div><div id="dp-12" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 13 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 325.867.753</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Nómina (1Q y 2Q)</div><div class="day-row-val" style="color:#dc2626">$ 38.865.452</div></div><div class="day-row"><div class="day-row-name">Nómina Erika Tarazona</div><div class="day-row-val" style="color:#dc2626">$ 1.734.548</div></div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 15.626.827</div></div><div class="day-row"><div class="day-row-name">Abonos TC (USD)</div><div class="day-row-val" style="color:#dc2626">$ 23.000.000</div></div><div class="day-row"><div class="day-row-name">Plan Complementario Compensar</div><div class="day-row-val" style="color:#dc2626">$ 1.471.680</div></div><div class="day-row"><div class="day-row-name">Comcel Claro Hogar</div><div class="day-row-val" style="color:#dc2626">$ 180.301</div></div><div class="day-row"><div class="day-row-name">Comcel Claro Móvil</div><div class="day-row-val" style="color:#dc2626">$ 241.617</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 508.744</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 688.962</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 82.318.130</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.685</div></div>
+      </div>
+    </div><div id="dp-13" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 14 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 312.549.685</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.685</div></div>
+      </div>
+    </div><div id="dp-14" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 15 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 312.549.685</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.685</div></div>
+      </div>
+    </div><div id="dp-15" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 16 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 312.549.685</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 312.549.872</div></div>
+      </div>
+    </div><div id="dp-16" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 17 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 312.549.872</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 92.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 404.549.935</div></div>
+      </div>
+    </div><div id="dp-17" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 18 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 404.549.935</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Impuestos (ICA+DIAN) Central</div><div class="day-row-val" style="color:#dc2626">$ 210.000.000</div></div><div class="day-row"><div class="day-row-name">Impuestos (ICA+DIAN) Team</div><div class="day-row-val" style="color:#dc2626">$ 86.000</div></div><div class="day-row"><div class="day-row-name">INVINMO S.A.S</div><div class="day-row-val" style="color:#dc2626">$ 14.221.687</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 688.367</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 334</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 224.996.388</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 179.553.609</div></div>
+      </div>
+    </div><div id="dp-18" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 19 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 179.553.609</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 179.553.672</div></div>
+      </div>
+    </div><div id="dp-19" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 20 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 179.553.672</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Caja Menor</div><div class="day-row-val" style="color:#dc2626">$ 1.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 4.344</div></div><div class="day-row"><div class="day-row-name">Abono TC (COP)</div><div class="day-row-val" style="color:#dc2626">$ 86.093</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 69.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 1.090.437</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.297</div></div>
+      </div>
+    </div><div id="dp-20" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 21 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 247.463.297</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.297</div></div>
+      </div>
+    </div><div id="dp-21" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 22 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 247.463.297</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.297</div></div>
+      </div>
+    </div><div id="dp-22" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 23 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 247.463.297</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 247.463.484</div></div>
+      </div>
+    </div><div id="dp-23" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 24 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 247.463.484</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 92.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 339.463.547</div></div>
+      </div>
+    </div><div id="dp-24" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 25 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 339.463.547</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#16a34a">$ 170.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Edgeuno SAS (Central)</div><div class="day-row-val" style="color:#dc2626">$ 12.582.818</div></div><div class="day-row"><div class="day-row-name">Edgeuno SAS (Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 63.869.774</div></div><div class="day-row"><div class="day-row-name">Sistemas Admin. e Ing. SAS</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#dc2626">$ 170.000.000</div></div><div class="day-row"><div class="day-row-name">Asylum Marketing SAS</div><div class="day-row-val" style="color:#dc2626">$ 9.775.000</div></div><div class="day-row"><div class="day-row-name">John Alexander Sánchez (LUOKA)</div><div class="day-row-val" style="color:#dc2626">$ 8.989.571</div></div><div class="day-row"><div class="day-row-name">Números y Soluciones SAS</div><div class="day-row-val" style="color:#dc2626">$ 6.723.862</div></div><div class="day-row"><div class="day-row-name">Hive Solutions SAS</div><div class="day-row-val" style="color:#dc2626">$ 3.484.500</div></div><div class="day-row"><div class="day-row-name">Equity Advisors S.A.S.</div><div class="day-row-val" style="color:#dc2626">$ 16.070.100</div></div><div class="day-row"><div class="day-row-name">Coorserpark</div><div class="day-row-val" style="color:#dc2626">$ 54.800</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 544.990</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 727.399</div></div><div class="day-row"><div class="day-row-name">Gadier Sistemas Profesionales de Información</div><div class="day-row-val" style="color:#dc2626">$ 269.578</div></div><div class="day-row"><div class="day-row-name">Siegenthaler & Co Sas</div><div class="day-row-val" style="color:#dc2626">$ 73.372.669</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 170.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 382.535.161</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 126.928.448</div></div>
+      </div>
+    </div><div id="dp-25" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 26 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 126.928.448</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 62</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 126.928.510</div></div>
+      </div>
+    </div><div id="dp-26" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 27 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 126.928.510</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 69.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Interna</div><div class="day-row-val" style="color:#16a34a">$ 62.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Giros Fiducia (OCCI/AVAL/Consorcio)</div><div class="day-row-val" style="color:#dc2626">$ 60.000.000</div></div><div class="day-row"><div class="day-row-name">Transferencia Central→Registry</div><div class="day-row-val" style="color:#dc2626">$ 62.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Registry</div><div class="day-row-val" style="color:#dc2626">$ 678.609</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 131.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 122.678.609</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 135.249.964</div></div>
+      </div>
+    </div><div id="dp-27" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 28 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 135.249.964</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 135.249.964</div></div>
+      </div>
+    </div><div id="dp-28" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 29 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 135.249.964</strong></div>
+      
+      
+      <div class="empty" style="padding:20px">Sin movimientos este día</div>
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 0</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 135.249.964</div></div>
+      </div>
+    </div><div id="dp-29" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 30 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 135.249.964</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 187</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Enel (Servicio Luz)</div><div class="day-row-val" style="color:#dc2626">$ 740.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 2.960</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 187</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 742.960</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#1e3a8a">$ 134.507.191</div></div>
+      </div>
+    </div><div id="dp-30" class="day-panel" style="display:none;margin-top:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div class="day-panel-title">Detalle — Día 31 de Marzo 2026</div>
+        <button onclick="selectDay(-1)" style="border:none;background:none;cursor:pointer;font-size:18px;color:#94a3b8">✕</button>
+      </div>
+      <div class="day-panel-sub">Saldo al inicio del día: <strong>$ 134.507.191</strong></div>
+      <div class="day-section-title" style="color:#16a34a">▲ Ingresos</div><div class="day-row"><div class="day-row-name">Retiros Pasarela</div><div class="day-row-val" style="color:#16a34a">$ 92.000.000</div></div><div class="day-row"><div class="day-row-name">Intereses Cuenta Ahorros</div><div class="day-row-val" style="color:#16a34a">$ 62</div></div>
+      <div class="day-section-title" style="color:#dc2626">▼ Egresos</div><div class="day-row"><div class="day-row-name">Nómina (1Q y 2Q)</div><div class="day-row-val" style="color:#dc2626">$ 52.265.452</div></div><div class="day-row"><div class="day-row-name">Nómina Erika Tarazona</div><div class="day-row-val" style="color:#dc2626">$ 1.734.548</div></div><div class="day-row"><div class="day-row-name">Pago Crédito OCCI</div><div class="day-row-val" style="color:#dc2626">$ 500.000.000</div></div><div class="day-row"><div class="day-row-name">Impto/Comisiones Central</div><div class="day-row-val" style="color:#dc2626">$ 216.000</div></div>
+      
+      <div class="day-totals">
+        <div class="day-total-box"><div class="day-total-label">Ingresos del día</div><div class="day-total-val" style="color:#16a34a">$ 92.000.062</div></div>
+        <div class="day-total-box"><div class="day-total-label">Egresos del día</div><div class="day-total-val" style="color:#dc2626">$ 554.216.000</div></div>
+        <div class="day-total-box"><div class="day-total-label">Saldo al cierre</div><div class="day-total-val" style="color:#dc2626">-$ 327.708.746</div></div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- EJECUCIÓN -->
+  <div id="pane-ejecucion" class="pane">
+    <div class="ejec-summary">
+      <div class="ejec-kpi" style="--kc:#2563eb"><div class="ejec-kpi-label">Movimientos registrados</div><div class="ejec-kpi-val">41 / 102</div><div class="ejec-kpi-sub">40% del mes ingresado</div></div>
+      <div class="ejec-kpi" style="--kc:#16a34a"><div class="ejec-kpi-label">Ejecución Ingresos</div><div class="ejec-kpi-val">37%</div><div class="ejec-kpi-sub">Real $ 421.807.886 vs Proy $ 1.136.809.076</div></div>
+      <div class="ejec-kpi" style="--kc:#dc2626"><div class="ejec-kpi-label">Ejecución Egresos</div><div class="ejec-kpi-val">14%</div><div class="ejec-kpi-sub">Real $ 229.417.897 vs Proy $ 1.597.995.653</div></div>
+      <div class="ejec-kpi" style="--c:#7c3aed" style="--kc:#7c3aed"><div class="ejec-kpi-label">Saldo neto real</div><div class="ejec-kpi-val">$ 192.389.989</div><div class="ejec-kpi-sub">Proyectado: -$ 461.186.576</div></div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="tbl-wrap"><table class="ejec-tbl">
+        <thead><tr>
+          <th style="width:36px">✓</th><th>Concepto</th>
+          <th class="r">Proyectado</th><th class="r" style="color:#7c3aed">Real</th>
+          <th class="r">Diferencia</th><th class="r" style="min-width:140px">% Ejecución</th>
+        </tr></thead>
+        <tbody>
+          <tr class="section-header"><td colspan="6"><span class="section-badge badge-ing">INGRESOS</span> &nbsp; Proy: $ 1.136.809.076 · Real: $ 421.807.886 · <strong>37%</strong></td></tr>
+          <tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Retiros Pasarela<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#16a34a">$ 698.800.369</td>
+        <td class="r"style="color:#16a34a">$ 215.800.369</td>
+        <td class="r"style="color:#16a34a">-$ 483.000.000</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">31%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:31%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Transferencia Interna<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#16a34a">$ 272.000.000</td>
+        <td class="r"style="color:#16a34a">$ 40.000.000</td>
+        <td class="r"style="color:#16a34a">-$ 232.000.000</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">15%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:15%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Pago Clientes/Anticipos/TIDIS<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#16a34a">$ 166.006.834</td>
+        <td class="r"style="color:#16a34a">$ 166.006.834</td>
+        <td class="r"style="color:#dc2626">+$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Intereses Cuenta Ahorros<span style="font-size:9px;background:#ede9fe;color:#7c3aed;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Ahorros</span></td>
+        <td class="r"style="color:#16a34a">$ 1.874</td>
+        <td class="r"style="color:#16a34a">$ 683</td>
+        <td class="r"style="color:#16a34a">-$ 1.191</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">36%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:36%;background:#dc2626"></div></div></div></td>
+      </tr>
+          <tr class="section-header"><td colspan="6"><span class="section-badge badge-egr">EGRESOS</span> &nbsp; Proy: $ 1.597.995.653 · Real: $ 229.417.897 · <strong>14%</strong></td></tr>
+          <tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Pago Crédito OCCI<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 500.000.000</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Transferencia Central→Registry<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 272.000.000</td>
+        <td class="r"style="color:#dc2626">$ 40.000.000</td>
+        <td class="r"style="color:#16a34a">-$ 232.000.000</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">15%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:15%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Impuestos (ICA+DIAN) Central<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 210.000.000</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Nómina (1Q y 2Q)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 91.130.904</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Giros Fiducia (OCCI/AVAL/Consorcio)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 81.726.827</td>
+        <td class="r"style="color:#dc2626">$ 6.100.000</td>
+        <td class="r"style="color:#16a34a">-$ 75.626.827</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">7%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:7%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Giros Internacionales<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 75.610.384</td>
+        <td class="r"style="color:#dc2626">$ 75.610.384</td>
+        <td class="r"style="color:#dc2626">+$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Siegenthaler & Co Sas<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 73.372.669</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Edgeuno SAS (Consorcio)<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 63.869.774</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Préstamos INVINMO<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 59.284.000</td>
+        <td class="r"style="color:#dc2626">$ 59.284.000</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Sistemas Admin. e Ing. SAS<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 32.140.200</td>
+        <td class="r"style="color:#dc2626">$ 16.070.100</td>
+        <td class="r"style="color:#16a34a">-$ 16.070.100</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">50%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:50%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Abonos TC (USD)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 23.000.000</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Mi Planilla (Aportes+Cesantías)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 18.270.900</td>
+        <td class="r"style="color:#dc2626">$ 18.270.900</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Equity Advisors S.A.S.<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 16.070.100</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>INVINMO S.A.S<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 14.221.687</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Edgeuno SAS (Central)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 12.582.818</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Asylum Marketing SAS<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 9.775.000</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>John Alexander Sánchez (LUOKA)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 8.989.571</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Números y Soluciones SAS<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 6.723.862</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Cuenta de Cobro Paula Irene Tejada<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 5.942.040</td>
+        <td class="r"style="color:#dc2626">$ 5.942.040</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Cuenta de Cobro Luis Duran<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 5.300.000</td>
+        <td class="r"style="color:#dc2626">$ 5.300.000</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Hive Solutions SAS<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 3.484.500</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Nómina Erika Tarazona<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 3.469.096</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Impto/Comisiones Central<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 2.793.177</td>
+        <td class="r"style="color:#dc2626">$ 827.772</td>
+        <td class="r"style="color:#16a34a">-$ 1.965.405</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">30%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:30%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Impto/Comisiones Registry<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 2.202.946</td>
+        <td class="r"style="color:#dc2626">$ 107.572</td>
+        <td class="r"style="color:#16a34a">-$ 2.095.374</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">5%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:5%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Enel (Servicio Luz)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 1.474.180</td>
+        <td class="r"style="color:#dc2626">$ 734.180</td>
+        <td class="r"style="color:#16a34a">-$ 740.000</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">50%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:50%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Plan Complementario Compensar<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 1.471.680</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Caja Menor<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 1.000.000</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Cuenta de cobro Jose Hugo Bohorquez<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 700.000</td>
+        <td class="r"style="color:#dc2626">$ 700.000</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>Póliza Seguros Mundial<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 275.633</td>
+        <td class="r"style="color:#dc2626">$ 275.633</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Gadier Sistemas Profesionales de Información<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 269.578</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Comcel Claro Móvil<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 241.617</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Comcel Claro Hogar<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 180.301</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🟢</td>
+        <td>.PE<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 140.516</td>
+        <td class="r"style="color:#dc2626">$ 140.516</td>
+        <td class="r"style="color:#16a34a">$ 0</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#16a34a">100%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:100%;background:#16a34a"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">🔴</td>
+        <td>Coorserpark<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 109.600</td>
+        <td class="r"style="color:#dc2626">$ 54.800</td>
+        <td class="r"style="color:#16a34a">-$ 54.800</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px"><span style="font-weight:700;color:#dc2626">50%</span><div style="background:#e2e8f0;border-radius:99px;height:6px;width:70px;display:inline-block;vertical-align:middle"><div style="height:6px;border-radius:99px;width:50%;background:#dc2626"></div></div></div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Abono TC (COP)<span style="font-size:9px;background:#dbeafe;color:#1e3a8a;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Principal</span></td>
+        <td class="r"style="color:#dc2626">$ 86.093</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr><tr style="background:">
+        <td style="text-align:center">⬜</td>
+        <td>Impuestos (ICA+DIAN) Team<span style="font-size:9px;background:#dcfce7;color:#15803d;padding:1px 6px;border-radius:99px;margin-left:3px;font-weight:700">Consorcio</span></td>
+        <td class="r"style="color:#dc2626">$ 86.000</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td class="r"style="color:#94a3b8">—</td>
+        <td><div style="display:flex;align-items:center;justify-content:flex-end;gap:6px">—</div></td>
+      </tr>
+          <tr class="grand-total"><td colspan="2">TOTAL NETO</td><td class="r">-$ 461.186.576</td><td class="r">$ 192.389.989</td><td class="r">$ 653.576.565</td><td></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:#94a3b8">🟢 ≥95% · 🟡 70–94% · 🔴 &lt;70% · 🆕 No proyectado · ⬜ Sin registrar</div>
+  </div>
+
+</div>
+<div class="watermark">📋 Solo lectura · Central Comercializadora de Internet SAS · Marzo 2026 · jueves, 12 de marzo de 2026</div>
+
+<script>
+const SALDO=[133477830,185072245,225328253,202531691,199245073,286989041,286989041,286989041,287083463,336058503,335917487,325867753,312549685,312549685,312549685,312549872,404549935,179553609,179553672,247463297,247463297,247463297,247463484,339463547,126928448,126928510,135249964,135249964,135249964,134507191,-327708746];
+function showTab(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById('pane-'+id).classList.add('active');btn.classList.add('active');if(id==='resumen')buildChart();}
+// Bar chart
+function buildChart(){
+  const cv=document.getElementById('bar-chart');if(!cv||cv._built)return;cv._built=true;
+  const W=cv.offsetWidth||cv.parentElement.offsetWidth||700;cv.width=W;cv.height=110;
+  const ctx=cv.getContext('2d');
+  const max=Math.max(...SALDO),min=Math.min(...SALDO),range=max-min||1;
+  const bw=Math.floor(W/SALDO.length),pad=2,ch=92;
+  function draw(hi){
+    ctx.clearRect(0,0,W,110);
+    SALDO.forEach((v,i)=>{
+      const h=Math.round(((v-min)/range)*(ch-10))+8;
+      ctx.fillStyle=i===hi?'#1e293b':v<0?'#ef4444':v<50000000?'#f59e0b':'#2563eb';
+      const x=i*bw+pad,y=ch-h;
+      ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,bw-pad*2,h,2);else ctx.rect(x,y,bw-pad*2,h);ctx.fill();
+      if((i+1)%5===0){ctx.fillStyle='#94a3b8';ctx.font='9px Inter,sans-serif';ctx.textAlign='center';ctx.fillText(i+1,x+(bw-pad*2)/2,ch+12);}
+    });
+  }
+  draw(-1);
+  const tt=document.getElementById('bar-tt');
+  let hov=-1;
+  cv.addEventListener('mousemove',e=>{
+    const rect=cv.getBoundingClientRect();
+    const idx=Math.floor((e.clientX-rect.left)/(W/SALDO.length));
+    if(idx>=0&&idx<SALDO.length&&idx!==hov){hov=idx;draw(idx);}
+    if(idx>=0&&idx<SALDO.length){
+      const v=SALDO[idx];const abs=Math.round(Math.abs(v));
+      tt.textContent='Dia '+(idx+1)+': '+(v<0?'-':'')+'$ '+abs.toLocaleString('es-CO');
+      tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-30)+'px';
+    }
+  });
+  cv.addEventListener('mouseleave',()=>{hov=-1;tt.style.display='none';draw(-1);});
+  cv.addEventListener('click',e=>{
+    const rect=cv.getBoundingClientRect();
+    const idx=Math.floor((e.clientX-rect.left)/(W/SALDO.length));
+    if(idx>=0&&idx<SALDO.length){tt.style.display='none';selectDay(idx);}
+  });
+}
+requestAnimationFrame(()=>requestAnimationFrame(buildChart));
+// Calendar
+let selDay=-1;
+function selectDay(d){
+  // Activar pestaña calendario
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('pane-calendario').classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>{if(t.textContent.includes('Calendario'))t.classList.add('active');});
+  // Limpiar selección previa
+  document.querySelectorAll('.cal-day').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.day-panel').forEach(p=>p.style.display='none');
+  if(d===selDay||d===-1){selDay=-1;return;}
+  selDay=d;
+  const el=document.getElementById('cd-'+d);
+  if(el){el.classList.add('selected');setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'center'}),50);}
+  const dp=document.getElementById('dp-'+d);
+  if(dp){dp.style.display='block';setTimeout(()=>dp.scrollIntoView({behavior:'smooth',block:'nearest'}),120);}
+}
+// Pagos filter
+let fTipo='todos',fOrig='',fTxt='';
+const tChips=['todos','ingreso','egreso'],oChips=['Principal','Consorcio','Ahorros'];
+function fP(key,btn){
+  if(key==='search'){fTxt=document.getElementById('psearch').value.toLowerCase();}
+  else if(tChips.includes(key)){
+    fTipo=key;
+    document.getElementById('ch-todos').className='chip'+(key==='todos'?' act-all':'');
+    document.getElementById('ch-ingreso').className='chip'+(key==='ingreso'?' act-ing':'');
+    document.getElementById('ch-egreso').className='chip'+(key==='egreso'?' act-egr':'');
+  } else if(oChips.includes(key)){
+    fOrig=fOrig===key?'':key;
+    oChips.forEach(k=>{document.getElementById('ch-'+k).className='chip'+(k===fOrig?' act-'+k.toLowerCase():'');});
+  }
+  let vis=0;
+  document.querySelectorAll('#ptbody tr').forEach(tr=>{
+    const ok=(fTipo==='todos'||fTipo===tr.dataset.tipo)&&(!fOrig||fOrig===tr.dataset.origen)&&(!fTxt||(tr.dataset.name||'').includes(fTxt));
+    tr.style.display=ok?'':'none';if(ok)vis++;
+  });
+  const c=document.getElementById('pcount');if(c)c.textContent=vis+' movimiento'+(vis!==1?'s':'')+' mostrados';
+}
+</script>
+</body></html>
