@@ -2136,7 +2136,7 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:#f8fafc;}
       <div style="margin-left:auto;text-align:right">
         <div style="font-size:10px;color:#94a3b8;font-weight:600;text-transform:uppercase;margin-bottom:3px">Saldo real · % cumplimiento</div>
         <div id="bc-total-saldo" style="font-size:24px;font-weight:900;color:#1d4ed8">$ 96.450.078</div>
-        <div style="margin-top:5px;display:flex;align-items:baseline;justify-content:flex-end;gap:10px"><span style="font-size:13px;font-weight:700;color:#dc2626">▼ $ 36.055.905</span><span style="font-size:20px;font-weight:900;color:#dc2626">-27%</span></div>
+        '<div id="bc-cumpl-wrap" style="margin-top:5px;display:flex;align-items:baseline;justify-content:flex-end;gap:10px"><span id="bc-cumpl-dif" style="font-size:13px;font-weight:700;color:'+(difCumplBX>=0?"#16a34a":"#dc2626")+'">'+(difCumplBX>=0?"▲":"▼")+' '+COP2(Math.abs(difCumplBX))+'</span><span id="bc-cumpl-pct" style="font-size:20px;font-weight:900;color:'+(pctCumplBX>=0?"#16a34a":"#dc2626")+'">'+(pctCumplBX>=0?"+":"")+pctCumplBX+'%</span></div>'
       </div>
     </div>
   </div>
@@ -3493,6 +3493,7 @@ function showCalDayBX(d,total,principal,consorcio,ahorros,prevTotal,movsJson){
 function closCalBX(){var el=document.getElementById("cal-day-detail-bx");if(el)el.style.display="none";}
 
 function filtrarBancos(){
+  const dia=document.getElementById("bancos-filtro-dia")?.value||"";
   const cuenta=document.getElementById("bancos-filtro-cuenta")?.value||"";
   const proy=document.getElementById("bancos-filtro-proy")?.value||"";
   const rows=document.querySelectorAll("#bancos-tbody tr");
@@ -3596,5 +3597,6 @@ function updateProyectado(day){
   if(sel){const hasOpt=[...sel.options].some(o=>o.value===String(day));sel.value=hasOpt?String(day):'';}
   filtrarBancos();
 }
+setTimeout(function(){filtrarBancos();var dci=document.getElementById('bc-diacorte-input');if(dci&&parseInt(dci.value)>0)updateProyectado(parseInt(dci.value));},100);
 </script>
 </body></html>
